@@ -99,7 +99,7 @@ function hcenter { # TEXT FILLER(optional)
      return 0
 }
 
-while getopts 'cnus:h:d:y:x:' flag
+while getopts 'cnus:h:d:x:y:' flag
 do
 	case "${flag}" in
         c) COLOR_ENABLED=1;;
@@ -108,8 +108,8 @@ do
         s) SIGNATURE=${OPTARG};;
 		h) hostname=${OPTARG};;
         d) domain=${OPTARG};;
-        y) TERM_ROWS=${OPTARG};;
         x) TERM_COLS=${OPTARG};;
+        y) TERM_ROWS=${OPTARG};;
         *) exit 1;;
 	esac
 done
