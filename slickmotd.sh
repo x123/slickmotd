@@ -2,6 +2,11 @@
 # slickmotd generates a slick looking motd
 # it requires figlet, git, and https://github.com/xero/figlet-fonts
 
+# debug prints of passed arguments
+echo "arg count: ${#}"
+echo "passed arguments:"
+echo "$@"
+
 # enable color output by default
 COLOR_ENABLED=1
 
@@ -123,7 +128,7 @@ fi
 
 if [ -z ${hostname+x} ];
 then
-	hostname=$(hostname -a)
+	hostname=$(hostname)
 fi
 
 if [ -z ${domain+x} ];
