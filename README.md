@@ -2,77 +2,60 @@ slickmotd
 =========
 slickmotd generates a slick looking motd
 
-It requires figlet to generate the ANSI art text based on the fantastic
-"Bloody" font by xero (https://github.com/xero/figlet-fonts)
+Dependencies
+------------
+- `figlet` - to generate the ANSI art text
+- `xero/figlet-fonts` - for the "Bloody" font (https://github.com/xero/figlet-fonts)
+- `git` - to clone the figlet-fonts repo
 
-It also needs git to clone the repo above.
+Nix Flakes
+----------
+If you're using flakes:
+`nix run github:x123/slickmotd#`
 
-Flags/Options
+Usage
 -------------
+```
+$ slickmotd --help
+slickmotd - generate a slick looking motd
 
-Flag/Option   | Description
-------------- | -------------
-`-c`          | Enable color output (default: enabled)
-`-n`          | Disable color output
-`-u`          | Enable uptime output for use in dynamic motd (default: disabled)
-`-s`          | Specify a signature or quote (defaults to "enjoy your stay")
-`-h`          | Specify the short hostname (defaults to `hostname -a`)
-`-d`          | Specify the domain name (defaults to `hostname -d`)
-`-x`          | Specify how many columns to use for output (default: 80)
-`-y`          | Specify how many rows to use for output (default: 25)
+Options:
+      --help          print usage
+  -c, --color         enable color output     (default: enabled)
+  -n, --no-color      disable color output
+  -u, --uptime        enable uptime output    (default: disabled)
+  -s, --signature     set signature quote     (default: "enjoy your stay")
+  -h, --hostname      set short hostname      (default: autodetect)
+  -d, --domain        set domain              (default: autodetect)
+  -x, --width         set width in columns    (default: 80)
+  -y, --height        set height in rows      (default: 25)
+
+```
 
 Examples
 --------
-
-`./slickmotd.sh`
+`slickmotd -n --hostname "euclid" --domain "theore.ms" --signature "q is prime"`
 ```
 
 
 
-                ▒██   ██▒ ██▓▓█████▄  ▄▄▄▄    ▒█████  ▒██   ██▒
-                ▒▒ █ █ ▒░▓██▒▒██▀ ██▌▓█████▄ ▒██▒  ██▒▒▒ █ █ ▒░
-                ░░  █   ░▒██▒░██   █▌▒██▒ ▄██▒██░  ██▒░░  █   ░
-                 ░ █ █ ▒ ░██░░▓█▄   ▌▒██░█▀  ▒██   ██░ ░ █ █ ▒
-                ▒██▒ ▒██▒░██░░▒████▓ ░▓█  ▀█▓░ ████▓▒░▒██▒ ▒██▒
-                ▒▒ ░ ░▓ ░░▓   ▒▒▓  ▒ ░▒▓███▀▒░ ▒░▒░▒░ ▒▒ ░ ░▓ ░
-                ░░   ░▒ ░ ▒ ░ ░ ▒  ▒ ▒░▒   ░   ░ ▒ ▒░ ░░   ░▒ ░
-                 ░    ░   ▒ ░ ░ ░  ░  ░    ░ ░ ░ ░ ▒   ░    ░
-                 ░    ░   ░     ░     ░          ░ ░   ░    ░
-                              ░            ░
-
-                             ┌                    ┐
-         · ··  ·  · ·· ──────┤ xidbox.localdomain ├────── ·· ·  ·  ·· ·
-                             └                    ┘
-                                enjoy your stay
 
 
-
-
-
-```
-
-`./slickmotd.sh -n -u -h "euclid" -d "theore.ms" -s "If q is prime, then there is at least one more prime that is not in the list."`
-```
-
-
-
-                 ▓█████  █    ██  ▄████▄   ██▓     ██▓▓█████▄
+                 ▓█████  █    ██  ▄████▄   ██▓     ██▓▓█████▄ 
                  ▓█   ▀  ██  ▓██▒▒██▀ ▀█  ▓██▒    ▓██▒▒██▀ ██▌
                  ▒███   ▓██  ▒██░▒▓█    ▄ ▒██░    ▒██▒░██   █▌
                  ▒▓█  ▄ ▓▓█  ░██░▒▓▓▄ ▄██▒▒██░    ░██░░▓█▄   ▌
-                 ░▒████▒▒▒█████▓ ▒ ▓███▀ ░░██████▒░██░░▒████▓
-                 ░░ ▒░ ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░░ ▒░▓  ░░▓   ▒▒▓  ▒
-                  ░ ░  ░░░▒░ ░ ░   ░  ▒   ░ ░ ▒  ░ ▒ ░ ░ ▒  ▒
-                    ░    ░░░ ░ ░ ░          ░ ░    ▒ ░ ░ ░  ░
-                    ░  ░   ░     ░ ░          ░  ░ ░     ░
-                                 ░                     ░
+                 ░▒████▒▒▒█████▓ ▒ ▓███▀ ░░██████▒░██░░▒████▓ 
+                 ░░ ▒░ ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░░ ▒░▓  ░░▓   ▒▒▓  ▒ 
+                  ░ ░  ░░░▒░ ░ ░   ░  ▒   ░ ░ ▒  ░ ▒ ░ ░ ▒  ▒ 
+                    ░    ░░░ ░ ░ ░          ░ ░    ▒ ░ ░ ░  ░ 
+                    ░  ░   ░     ░ ░          ░  ░ ░     ░    
+                                 ░                     ░      
 
-                              ┌                  ┐
-          · ··  ·  · ·· ──────┤ euclid.theore.ms ├────── ·· ·  ·  ·· ·
-                              └                  ┘
-      22:51:26 up 13 days, 13:34,  0 users,  load average: 0.00, 0.01, 0.00
-
- If q is prime, then there is at least one more prime that is not in the list.
+                              ┌                  ┐                              
+          · ··  ·  · ·· ──────┤ euclid.theore.ms ├────── ·· ·  ·  ·· ·          
+                              └                  ┘                              
+                                   q is prime                                   
 
 
 
