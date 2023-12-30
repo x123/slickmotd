@@ -15,7 +15,7 @@
         default = pkgs.writeShellApplication {
           name = "slickmotd";
           runtimeInputs = with pkgs; [ bash figlet git ];
-          text = ./slickmotd.sh;
+          text = builtins.readFile ./slickmotd.sh;
         };
       });
 

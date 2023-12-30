@@ -2,10 +2,7 @@
 # slickmotd generates a slick looking motd
 # it requires figlet, git, and https://github.com/xero/figlet-fonts
 
-# debug prints of passed arguments
-echo "arg count: ${#}"
-echo "passed arguments:"
-echo "$@"
+set -euo pipefail
 
 # enable color output by default
 COLOR_ENABLED=1
