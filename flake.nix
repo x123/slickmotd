@@ -14,7 +14,7 @@
       packages = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.writeShellApplication {
           name = "slickmotd";
-          runtimeInputs = with pkgs; [ bash figlet git ];
+          runtimeInputs = with pkgs; [ bash figlet git getopt ];
           text = builtins.readFile ./slickmotd.sh;
         };
       });

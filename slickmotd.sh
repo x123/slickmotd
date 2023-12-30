@@ -13,12 +13,32 @@ LIGHTGRAY="\e[37m"
 RESETCOLOR="\e[0m"
 
 UPTIME=0
+HELP=0
 SIGNATURE="enjoy your stay"
 declare -i TERM_COLS=80
 declare -i TERM_ROWS=25
 
 FONTDIR='/tmp/figlet-fonts'
 FONTREPO='https://github.com/xero/figlet-fonts.git'
+
+show_help() {
+    echo "slickmotd - generate a slick looking motd"
+    echo ""
+    echo "Options:"
+    echo "      --help          print usage"
+    echo "  -c, --color         enable color output     (default: enabled)"
+    echo "  -n, --no-color      disable color output"
+    echo "  -u, --uptime        enable uptime output    (default: disabled)"
+    echo "  -s, --signature     set signature quote     (default: \"enjoy your stay\")"
+    echo "  -h, --hostname      set short hostname      (default: autodetect)"
+    echo "  -d, --domain        set domain              (default: autodetect)"
+    echo "  -x, --width         set width in columns    (default: 80)"
+    echo "  -y, --height        set height in rows      (default: 25)"
+    echo ""
+    echo "Generate a custom motd:"
+    echo " slickmotd -u --hostname \"euclid\" --domain \"theore.ms\" --signature \"q is prime\""
+    echo ""
+}
 
 # bail if git not available
 if ! type "git" >/dev/null 2>/dev/null;
@@ -101,22 +121,32 @@ function hcenter { # TEXT FILLER(optional)
      return 0
 }
 
-while getopts 'cnus:h:d:x:y:' flag
-do
-	case "${flag}" in
-        c) COLOR_ENABLED=1;;
-        n) COLOR_ENABLED=0;;
-        u) UPTIME=1;;
-        s) SIGNATURE=${OPTARG};;
-		h) hostname=${OPTARG};;
-        d) domain=${OPTARG};;
-        x) TERM_COLS=${OPTARG};;
-        y) TERM_ROWS=${OPTARG};;
-        *) exit 1;;
-	esac
+TEMP=$(getopt -o cnus:h:d:x:y: --long help,color,no-color,uptime,signature:,hostname:,domain:,width:,height: -- "$@")
+
+eval set -- "$TEMP"
+while true; do
+    case "$1" in
+        --help ) HELP=1; shift;;
+        -c | --color ) COLOR_ENABLED=1; shift;;
+        -n | --no-color ) COLOR_ENABLED=0; shift;;
+        -u | --uptime ) UPTIME=1; shift;;
+        -s | --signature ) SIGNATURE="$2"; shift 2;;
+        -h | --hostname ) hostname="$2"; shift 2;;
+        -d | --domain ) domain="$2"; shift 2;;
+        -x | --width ) TERM_COLS="$2"; shift 2;;
+        -y | --height ) TERM_ROWS="$2"; shift 2;;
+        == ) shift; break ;;
+        * ) break ;;
+    esac
 done
 
 # begin options validation
+if [ "${HELP}" -eq "1" ];
+then
+    show_help
+    exit 0
+fi
+
 if [[ $TERM_COLS -lt 80 ]];
 then
     echo "cannot specify less than 80 columns"
